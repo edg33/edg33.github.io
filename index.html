@@ -1,1 +1,152 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Metadata to work on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracker John's</title>
+    <style>
+/* Body and background picture rules */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('backdrop.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat; 
+            color: rgb(51, 51, 51);
+        }
+/* Header Color, Padding and Location */
+        header {
+            background-color: RGB(66, 139, 135);
+            color: rgb(255, 255, 255);
+            padding: 10px;
+            text-align: center;
+        }
+/* Nav Content */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgb(51, 51, 51);
+            padding: 10px;
+        }
+/* Nav Links */
+        nav a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            /* Have a smooth transition */
+            transition: color 0.3s ease;
+        }
+/* Hover effect color */
+        nav a:hover {
+            color: #D59D79;
+        }
+/* Space between sections */
+        section {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            /* Round edges */
+            border-radius: 8px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid rgb(200, 200, 200);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: RGB(66, 139, 135);
+            color: rgb(255, 255, 255);
+            padding: 10px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #D59D79;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: rgb(255, 255, 255);
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: rgb(51, 51, 51);
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tracker John's</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <section>
+        <h2>Welcome to Tracker John's</h2>
+        <p>Let us find rare and exotic items for you. Submit your request below, and John will scour the globe to procure it for you!</p>
+
+        <form action="#" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="item">Requested Item:</label>
+            <input type="text" id="item" name="item" required>
+            <label for="details">Additional Details:</label>
+            <textarea id="details" name="details" rows="4"></textarea>
+
+            <button type="submit">Submit Request</button>
+        </form>
+
+        <h3>Past Procurements</h3>
+        <ul>
+            <li>Saffron</li>
+            <li>Taylor Swift Tickets</li>
+            <li>Strawberries (Out of Season)</li>
+        </ul>
+    </section>
+
+    <footer>
+        &copy; 2024 Tracker John's. All rights reserved.
+    </footer>
+
+</body>
+
+</html>
