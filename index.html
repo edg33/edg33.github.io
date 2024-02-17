@@ -13,17 +13,24 @@
 
         .receipt {
             width: 20%;
+            min-width: 300px;
             margin: auto;
             text-align: left;
-            min-width: 300px;
         }
         /* Want the prices to be right aligned in the receipt while text is left aligned */
         .price {
             float: right;
         }
+        img {
+            max-width: 100%; 
+            height: auto; 
+            margin: 0 auto; 
+        } 
     </style>
 </head>
 <body>
+    <h1>Joe's Hot Dogs</h1>
+    <img src="dogs.jpg" alt="Joe's Hot Dogs">
 <script>
     // Prices
     const HOTDOG_PRICE = 4.65;
@@ -105,6 +112,7 @@
     document.write(`<p class = 'receipt'>Hotdogs: x${numDogs} <span class ="price">${showMoney(numDogs * HOTDOG_PRICE)}</span></p>`);
     document.write(`<p class = 'receipt'>Fries: x${numFries} <span class ="price">${showMoney(numFries * FRIES_PRICE)}</span></p>`);
     document.write(`<p class = 'receipt'>Sodas: x${numSoda} <span class ="price">${showMoney(numSoda * SODA_PRICE)}</span></p>`);
+    document.write(`<p class = 'receipt'>&nbsp;<span class ="price">------------</span>\n</p>`);
     document.write(`<p class = 'receipt'>Subtotal: <span class ="price">${showMoney(subtotal + discount)}</span></p>`);
     if (discount > 0) {
         document.write(`<p class = 'receipt'>Discount: <span class ="price">-${showMoney(discount)}</span></p>`);
