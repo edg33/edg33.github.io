@@ -2,151 +2,116 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- Metadata to work on different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker John's</title>
+    <title>Joe's Hotdog Stand Order</title>
     <style>
-/* Body and background picture rules */
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('backdrop.jpg'); 
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat; 
-            color: rgb(51, 51, 51);
-        }
-/* Header Color, Padding and Location */
-        header {
-            background-color: RGB(66, 139, 135);
-            color: rgb(255, 255, 255);
-            padding: 10px;
+            font-family: Arial, sans-serif;
             text-align: center;
-        }
-/* Nav Content */
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: rgb(51, 51, 51);
-            padding: 10px;
-        }
-/* Nav Links */
-        nav a {
-            color: rgb(255, 255, 255);
-            text-decoration: none;
-            padding: 10px;
-            margin: 0 10px;
-            /* Have a smooth transition */
-            transition: color 0.3s ease;
-        }
-/* Hover effect color */
-        nav a:hover {
-            color: #D59D79;
-        }
-/* Space between sections */
-        section {
-            padding: 20px;
+            margin: 30px;
         }
 
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: rgb(255, 255, 255);
-            padding: 20px;
-            /* Round edges */
-            border-radius: 8px;
+        .receipt {
+            width: 15%;
+            margin: auto;
+            text-align: left;
         }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid rgb(200, 200, 200);
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: RGB(66, 139, 135);
-            color: rgb(255, 255, 255);
-            padding: 10px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #D59D79;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            background-color: rgb(255, 255, 255);
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        footer {
-            background-color: rgb(51, 51, 51);
-            color: rgb(255, 255, 255);
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        /* Want the prices to be right aligned in the receipt while text is left aligned */
+        .price {
+            float: right;
         }
     </style>
 </head>
-
 <body>
+<script>
+    // Prices
+    const HOTDOG_PRICE = 4.65;
+    const FRIES_PRICE = 3.75;
+    const SODA_PRICE = 1.89;
 
-    <header>
-        <h1>Tracker John's</h1>
-    </header>
+    // Helper function to check edge cases 
+    function checkLength(a) {
+        if (a.length >= 3) {
+            return a;
+        }
+        // Case where no dollars with 10s cents
+        else if (a.length == 2) {
+            return "0" + a;
+        }
+        // Case where no dollars, no 10s with 1s cents
+        else if (a.length == 1) {
+            return "00" + a;
+        }
+        // Cannot really happen since prior checks ensure at least a 0 exists
+        else {
+            return "000";
+        }
+    }
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+    // Function to round a floating point number to 2 decimal places
+    // moves the decimal 2 places to the right and then gets rid of any values <1 cent
+    function showMoney(num) {
+        let numString = Math.round(num * 100).toString();
+        numString = checkLength(numString);
+        let combined = numString.slice(0, -2) + "." + numString.slice(-2);
+        return combined;
+    }
 
-    <section>
-        <h2>Welcome to Tracker John's</h2>
-        <p>Let us find rare and exotic items for you. Submit your request below, and John will scour the globe to procure it for you!</p>
+    // Function to make sure the input is nonnegative and actually a number
+    // parseInt with the 0 alternative will capture non-integers
+    // if the value is not an integer (string, float etc.), parseInt returns NaN and 0 is assumed as the default
+    // NaN is not considered truth so 0 will be returned by the || operator
+    // This will capture invalid entries (i.e. negatives, decimals, nonnumerical strings etc.) and return 0 by default
+    // Upper limit of 10,000 for each item since should probably contact the proprietor directly for such high orders
+    function checkValidInput(num) {
+        let inputNum = parseInt(num, 10) || 0;
+        if (inputNum < 0) {
+            return 0;
+        }
+        else if (inputNum > 10000) {
+            return 10000;
+        }
+        else {
+            return inputNum;
+        }
+    }
 
-        <form action="#" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required>
-            <label for="item">Requested Item:</label>
-            <input type="text" id="item" name="item" required>
-            <label for="details">Additional Details:</label>
-            <textarea id="details" name="details" rows="4"></textarea>
+    // Prompt user to see how many of each item they want
+    // Valid inputs are checked by checkValidInput
+    var numDogs = prompt("How many hotdogs do you want? ($4.65 each)");
+    numDogs = checkValidInput(numDogs);
+    var numFries = prompt("How many orders of fries do you want? ($3.75 each)");
+    numFries = checkValidInput(numFries);
+    var numSoda = prompt("How many sodas do you want? ($1.89 each)");
+    numSoda = checkValidInput(numSoda);
 
-            <button type="submit">Submit Request</button>
-        </form>
+    // Calculate subtotal
+    var subtotal = numDogs * HOTDOG_PRICE + numFries * FRIES_PRICE + numSoda * SODA_PRICE;
+    var discount = 0;
+    if (subtotal >= 25) {
+        discount = subtotal * 0.1;
+    }
 
-        <h3>Past Procurements</h3>
-        <ul>
-            <li>Saffron</li>
-            <li>Taylor Swift Tickets</li>
-            <li>Strawberries (Out of Season)</li>
-        </ul>
-    </section>
+    // Apply discount
+    subtotal = subtotal - discount;
 
-    <footer>
-        &copy; 2024 Tracker John's. All rights reserved.
-    </footer>
+    // Calculate tax and total
+    const TAX_RATE = 0.0625;
+    var totalAmount = subtotal * (1 + TAX_RATE);
 
+    // Display the receipt
+    document.write("<h2>Your Order Summary</h2>");
+    document.write(`<p class = 'receipt'>Hotdogs: x${numDogs} <span class ="price">${showMoney(numDogs * HOTDOG_PRICE)}</span></p>`);
+    document.write(`<p class = 'receipt'>Fries: x${numFries} <span class ="price">${showMoney(numFries * FRIES_PRICE)}</span></p>`);
+    document.write(`<p class = 'receipt'>Sodas: x${numSoda} <span class ="price">${showMoney(numSoda * SODA_PRICE)}</span></p>`);
+    document.write(`<p class = 'receipt'>Subtotal: <span class ="price">${showMoney(subtotal + discount)}</span></p>`);
+    if (discount > 0) {
+        document.write(`<p class = 'receipt'>Discount: <span class ="price">-${showMoney(discount)}</span></p>`);
+        document.write(`<p class = 'receipt'>New Subtotal: <span class ="price">${showMoney(subtotal)}</span></p>`);
+    }
+    document.write(`<p class = 'receipt'>Tax (6.25%): <span class ="price">${showMoney(subtotal * TAX_RATE)}</span></p>`);
+    document.write(`<h3>Total Amount: $${showMoney(totalAmount)}</h3>`);
+    
+</script>
 </body>
-
 </html>
