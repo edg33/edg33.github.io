@@ -109,17 +109,17 @@
 
     // Display the receipt
     document.write("<h2>Your Order Summary</h2>");
-    document.write(`<p class = 'receipt'>Hot Dogs x${numDogs} <span class ="price">${showMoney(numDogs * HOTDOG_PRICE)}</span></p>`);
-    document.write(`<p class = 'receipt'>Fries x${numFries} <span class ="price">${showMoney(numFries * FRIES_PRICE)}</span></p>`);
-    document.write(`<p class = 'receipt'>Sodas x${numSoda} <span class ="price">${showMoney(numSoda * SODA_PRICE)}</span></p>`);
-    document.write(`<p class = 'receipt'>&nbsp;<span class ="price">------------</span>\n</p>`);
-    document.write(`<p class = 'receipt'>Subtotal: <span class ="price">${showMoney(subtotal + discount)}</span></p>`);
+    document.write("<p class = 'receipt'>Hot Dogs x" + numDogs + "<span class ='price'>" + showMoney(numDogs * HOTDOG_PRICE) + "</span></p>");
+    document.write("<p class = 'receipt'>Fries x" + numFries + "<span class ='price'>" + showMoney(numFries * FRIES_PRICE) + "</span></p>");
+    document.write("<p class = 'receipt'>Sodas x" + numSoda + "<span class ='price'>" + showMoney(numSoda * SODA_PRICE) + "</span></p>");
+    document.write("<p class = 'receipt'>&nbsp;<span class ='price'>------------</span>\n</p>");
+    document.write("<p class = 'receipt'>Subtotal: <span class ='price'>" + showMoney(subtotal + discount) + "</span></p>");
     if (discount > 0) {
-        document.write(`<p class = 'receipt'>Discount: <span class ="price">-${showMoney(discount)}</span></p>`);
-        document.write(`<p class = 'receipt'>New Subtotal: <span class ="price">${showMoney(subtotal)}</span></p>`);
+        document.write("<p class = 'receipt'>Discount: <span class ='price'>-" + showMoney(discount) + "</span></p>");
+        document.write("<p class = 'receipt'>New Subtotal: <span class ='price'>" + showMoney(subtotal) + "</span></p>");
     }
-    document.write(`<p class = 'receipt'>Tax (6.25%): <span class ="price">${showMoney(subtotal * TAX_RATE)}</span></p>`);
-    document.write(`<h3>Total Amount: $${showMoney(totalAmount)}</h3>`);
+    document.write("<p class = 'receipt'>Tax (6.25%): <span class ='price'>" + showMoney(subtotal * TAX_RATE) + "</span></p>");
+    document.write("<h3>Total Amount: $" + showMoney(totalAmount) + "</h3>");
     
 </script>
 </body>
