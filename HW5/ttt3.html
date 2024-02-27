@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe Board</title>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        /* Establish the main axis as columns */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: fantasy;
+    }
+
+    h1 {
+        margin: 20px;
+    }
+
+    button {
+        background-color: #ffb5b5; 
+        border: none;
+        color: #000000;
+        padding: 15px 30px;
+        text-align: center;
+        font-family: fantasy;
+        display: inline-block;
+        border: dashed;
+        margin: 10px 10px;
+        cursor: pointer;
+    }
+
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 5px;
+    }
+
+    .square {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000000;;
+        display: flex;
+        /* Along main axis (column) */
+        align-items: center;
+        /* Along cross axis (row) */
+        justify-content: center;
+        /* Scale the x's and o's */
+        font-size: 5em;
+    }
+
+    .square:hover {
+        background-color: #b5fffe;
+    }
+
+    .turn-indicator, .win-display {
+        border: 1px dashed #000000;;
+        padding: 20px;
+        margin: 10px;
+        width: 200px;
+        text-align: center;
+    }
+
+    .turn-indicator {
+        order: 1; 
+    }
+
+    .win-display {
+        order: 2; 
+    }
+</style> 
+</head>
+<body>
+<h1>Tic Tac Toe Xtreme</h1>
+<div class="board" id="gameBoard">
+<script>
+    const NUM_SQUARES = 9;
+    for (let i = 0; i < NUM_SQUARES; i++) {
+        id = "sq" + i;
+        document.write( "<div class='square' id='" + id + "'></div>" );
+    }
+</script>
+</div>
+
+<script>
+    // Current turn
+    var currentTurn = 'O';
+    // Keeps track of the moves 
+    var moves = Array(9).fill('-');
+    
+    // Helper function to clear the visual contents of a square
+    function clearSquare(sq){
+        sq.innerText = '';
+    }
+
+    // A function to start the game
+    function start() {
+        // Fill the board array with null values -> following code resets visual
+        moves.fill('-');
+        currentTurnDecision = Math.random();
+        turn = 'O'
+        // Decide who wins with a random number between 0 and 1
+        if (currentTurnDecision < 0.5) {
+            turn = 'X'
+        }
+        // Call the clearSquare function on each square in the grid
+        document.querySelectorAll('.square').forEach(clearSquare);
+        // Adjust the turn indicator
+        document.querySelector('.turn-indicator').innerText = turn + "'s turn";
+    }
+  
+    // Square click event handler
+    function squareClicked(event) {
+        // get the square and index of the square from the event
+        const square = event.target;
+        const index = square.id.slice(2);
+
+        // Initialized the board with all null values so only non-selected squares will activate the condition
+        if (moves[index] == '-') {
+            // Update moves -> this gets modified in ttt4
+            moves[index] = currentTurn;
+            square.innerText = currentTurn;
+            // Pop up
+            alert("Square " + index);
+            // Switch turns internally
+            if (currentTurn == 'X'){
+                currentTurn = "O";
+            }
+            else {
+                currentTurn = "X";
+            }
+            // Switch turns visually
+            document.querySelector('.turn-indicator').innerText = currentTurn + "'s turn";
+        }
+    }
+  
+    // Initialize the window and add event listeners
+    window.onload = () => 
+    {
+        // For each square, add an event listener for clicks that calls the square clicked function
+        document.querySelectorAll('.square').forEach(square => 
+        {
+            square.addEventListener('click', squareClicked);
+        });
+  
+        // Create the start button and add it to the body
+        const startButton = document.createElement('button');
+        startButton.innerText = 'Start Game';
+        startButton.addEventListener('click', start);
+        document.body.appendChild(startButton);
+        start();
+    };
+</script>
+<div class="turn-indicator"></div>
+<div class="win-display">Win condition</div>
+  
+</body>
+</html>

@@ -1,0 +1,44 @@
+I am most proud of the checkWin function. Before this assignment, I was not very comfortable with
+anonymous functions so I was very proud to successfully convey something that could be done as a loop as an
+anonymous function. I was also proud of the way I worked through the logic for determining what should be a win, what
+should be a stalemate and what would result in the continuation of play. 
+
+I used console.log() a lot throughout the course of this assignment so it was nice to see all of the functions finally work
+as intended. It was especially nice once I got all of the querySelector and querySelectorAll calls to work because I
+originally had trouble understanding their uses. 
+
+
+// Check if either x or o has won
+    // Update the win conditions array
+    function checkWin() {
+        // Array of all possible win conditions using the array with the indices of win conditions
+        winConditions = winning.map(three => moves[three[0]] + moves[three[1]] + moves[three[2]]);
+        // If no hiphens are found this will remain true through the loop
+        isStalemate = true;
+        for (let x = 0; x < winConditions.length; x++){
+            // Index of the win condition
+            first = winConditions[x][0];
+            second = winConditions[x][1];
+            third = winConditions[x][2];
+            // Avoid misclassifying a triple - as a win
+            // All three are the same for a win
+            if (first != '-'){
+                if (first == second && first == third){
+                    return ['Win', first];
+                }
+            }
+            else{
+                isStalemate = false;
+            }
+            // Check for any hiphens 
+            if (second == '-' || third == '-'){
+                isStalemate = false;
+            }
+        }
+        if (isStalemate){
+            return ['Stalemate', 'No One'];
+        }
+        else{
+            return ['continue', 'continue'];
+        }
+    }
